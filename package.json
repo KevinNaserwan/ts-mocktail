@@ -1,0 +1,28 @@
+{
+  "name": "ts-mocktail",
+  "version": "1.0.0",
+  "description": "Zero-config TypeScript DTO/Interface contract-driven stateful HTTP mock server",
+  "main": "lib/index.js",
+  "bin": {
+    "ts-mocktail": "./bin/ts-mocktail.js"
+  },
+  "scripts": {
+    "test": "node test/run-tests.js",
+    "demo": "node bin/ts-mocktail.js examples/models.ts --port 4100 --once"
+  },
+  "keywords": [
+    "typescript",
+    "mock-server",
+    "dto",
+    "interface",
+    "stateful-mock",
+    "rest-api",
+    "api-testing",
+    "dev-tools"
+  ],
+  "author": "Kevin Naserwan <kevinnaserwan@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
