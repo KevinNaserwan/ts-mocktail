@@ -1,15 +1,19 @@
-'use strict';
+export interface FieldDefinition {
+  name: string;
+  optional: boolean;
+  type: string;
+}
 
-/**
- * Lightweight TypeScript Interface/Type AST Extractor
- * Parses TypeScript interfaces and type aliases without heavyweight ts-node dependency.
- */
-function parseTypeScriptDefinitions(tsCode) {
-  const models = new Map();
+export interface ModelDefinition {
+  name: string;
+  jsDoc: string;
+  fields: Record<string, FieldDefinition>;
+}
 
-  // Clean comments but keep JSDoc annotations
+export function parseTypeScriptDefinitions(tsCode: string): Map<string, ModelDefinition> {
+  const models = new Map<string, ModelDefinition>();
   const interfaceRegex = /(?:\/\*\*([\s\S]*?)\*\/\s*)?(?:export\s+)?(?:interface|type)\s+([A-Za-z0-9_]+)(?:\s*=\s*|\s*\{)([\s\S]*?)\}/g;
-  let match;
+  let match: RegExpExecArray | null;
 
   while ((match = interfaceRegex.exec(tsCode)) !== null) {
     const jsDoc = match[1] || '';
@@ -27,15 +31,14 @@ function parseTypeScriptDefinitions(tsCode) {
   return models;
 }
 
-function parseFields(bodyText) {
-  const fields = {};
+function parseFields(bodyText: string): Record<string, FieldDefinition> {
+  const fields: Record<string, FieldDefinition> = {};
   const lines = bodyText.split(/[\n;]/);
 
   for (let line of lines) {
     line = line.trim();
     if (!line || line.startsWith('//') || line.startsWith('/*')) continue;
 
-    // Field: name?: type
     const fieldMatch = line.match(/^([A-Za-z0-9_]+)(\?)?:\s*([^;]+)/);
     if (fieldMatch) {
       const fieldName = fieldMatch[1];
@@ -53,14 +56,8 @@ function parseFields(bodyText) {
   return fields;
 }
 
-function cleanType(rawType) {
-  // Strip trailing comments
+function cleanType(rawType: string): string {
   let t = rawType.replace(/\/\/.*$/, '').trim();
-  // Strip union with undefined
   t = t.replace(/\|\s*undefined/g, '').trim();
   return t;
 }
-
-module.exports = {
-  parseTypeScriptDefinitions
-};

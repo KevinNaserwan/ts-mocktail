@@ -2,9 +2,9 @@
 
 const assert = require('assert');
 const http = require('http');
-const { parseTypeScriptDefinitions } = require('../lib/ts-parser');
-const { MockGenerator } = require('../lib/mock-generator');
-const { StatefulMockServer } = require('../lib/server');
+const { parseTypeScriptDefinitions } = require('../dist/ts-parser');
+const { MockGenerator } = require('../dist/mock-generator');
+const { StatefulMockServer } = require('../dist/server');
 
 console.log('Running ts-mocktail Test Suite...');
 

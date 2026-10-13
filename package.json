@@ -2,12 +2,14 @@
   "name": "ts-mocktail",
   "version": "1.0.0",
   "description": "Zero-config TypeScript DTO/Interface contract-driven stateful HTTP mock server",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
     "ts-mocktail": "./bin/ts-mocktail.js"
   },
   "scripts": {
-    "test": "node test/run-tests.js",
+    "build": "tsc",
+    "test": "tsc && node test/run-tests.js",
     "demo": "node bin/ts-mocktail.js examples/models.ts --port 4100 --once"
   },
   "keywords": [
@@ -24,5 +26,8 @@
   "license": "MIT",
   "engines": {
     "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5"
   }
 }

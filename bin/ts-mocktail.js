@@ -2,7 +2,7 @@
 'use strict';
 
 const fs = require('fs');
-const { StatefulMockServer } = require('../lib/server');
+const { StatefulMockServer } = require('../dist/server');
 
 function printUsage() {
   console.error(`
